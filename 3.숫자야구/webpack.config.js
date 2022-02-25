@@ -1,10 +1,27 @@
+const VueLoaderPlugin = require("vue-loader/lib/plugin");
 var path = require("path");
+// const webpack = require("webpack");
+
+// const webpackMode = process.env.NODE_ENV || "development";
 
 module.exports = {
-  mode: "none",
-  entry: "./src/index.js",
+  resolve: {
+    extensions: [".js", ".vue"],
+  },
+  entry: {
+    app: "./main.js",
+  },
+  module: {
+    rules: [
+      {
+        test: /\.vue$/,
+        loader: "vue-loader",
+      },
+    ],
+  },
+  plugins: [new VueLoaderPlugin()],
   output: {
-    filename: "main.js",
-    path: path.resolve(__dirname, "dist"),
+    filename: "[name].js",
+    path: path.join(__dirname, "dist"),
   },
 };
