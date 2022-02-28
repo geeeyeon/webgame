@@ -22,6 +22,11 @@ const scores={
     바위 : 0,
     보 : -1
 };
+const computerChoice = (imgCoord)=>{
+    return Object.entries(rspCoords).find(function (v){
+        return v[1] === imgCoord;
+    })[0];
+}
 let interval = null;
 export default {
    data(){ 
@@ -41,11 +46,11 @@ export default {
    methods:{
        changeHand(){
            interval = setInterval(()=>{
-               if(this.imgCoord === rspCoores.바위){
+               if(this.imgCoord === rspCoords.바위){
                    this.imgCoord =rspCoords.가위;
-               }else if(this.imgCoord === rspCoores.가위){
+               }else if(this.imgCoord === rspCoords.가위){
                    this.imgCoord =rspCoords.보;
-               }else if(this.imgCoord === rspCoores.보){
+               }else if(this.imgCoord === rspCoords.보){
                    this.imgCoord =rspCoords.바위;
                }
            },100)
@@ -56,16 +61,16 @@ export default {
            const computerScore = scores[computerChoice(this.imgCoord)];
            const diff = myScore - computerScore;
            if(diff===0){
-               this.result = '비겼'
+               this.result = '비겼다'
            }else if ([-1,2].includes(diff)){
-               this.result="이겼";
+               this.result="이겼다";
                this.score +=1;
            }else{
-               this.result = '졌';
+               this.result = '졌다';
                this.score -=1
            }
            setTimeout(()=>{
-               this.changeHand
+               this.changeHand()
            },1000);
        }
    },
@@ -73,15 +78,7 @@ export default {
 
    },
    mounted(){ //화면에까지 다 보여준 상태
-    interval = setInterval(()=>{
-        if(this.imgCoord === this.rspCoores.바위){
-            this.imgCoord =rspCoords.가위;
-        }else if(this.imgCoord === this.rspCoores.가위){
-            this.imgCoord =rspCoords.보;
-        }else if(this.imgCoord === this.rspCoores.보){
-            this.imgCoord =rspCoords.바위;
-        }
-    },100);
+    this.changeHand();
    },
    beforeDestroy(){ // clear 할 때 주로 사용
     clearInterval(interval);
