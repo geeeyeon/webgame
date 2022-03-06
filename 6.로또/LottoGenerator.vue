@@ -3,11 +3,11 @@
     <h1>로또 번호 생성기</h1>
     <div>당첨 숫자</div>
     <div id="결과창">
-        <lotto-ball v-for="ball in winBalls" number="5"></lotto-ball>
+        <lotto-ball v-for="ball in winBalls" :key="ball" v-bind:number="ball"></lotto-ball>
     </div>
     <div>보너스</div>
-    <lotto-ball v-if="redo"></lotto-ball>
-    <button v-if="redo">한번 더</button>
+    <lotto-ball v-if="redo" :number="bonus"></lotto-ball>
+    <button v-if="redo" @click="onClickRedo">한번 더</button>
   </div>  
 </template>
 <script>
@@ -20,8 +20,10 @@ function getWinNumbers(){
     }
     const bonusNumber = shuffle[shuffle.length -1];
     const winNumbers = shuffle.slice(0,6).sort((p,c)=>p-c);
+    console.log(winNumbers, bonusNumber)
     return [...winNumbers, bonusNumber];
 }
+const timeouts = [];
 export default {
     components:{ // 컴포넌트 등록
         'lotto-ball' : LottoBall
@@ -38,12 +40,32 @@ export default {
      
    },
    methods:{
+       onClickRedo(){
+           this.winNumbers = getWinNumbers();
+           this.winBalls = [];
+           this.bonus = null;
+           this.redo = false;
+           this.showBalls();
+       },
+       showBalls(){
+           for(let i=0; i< this.winNumbers.length-1; i++){
+                timeouts[i] = setTimeout(()=>{
+                    this.winBalls.push(this.winNumbers[i]);
+                }, (i+1) * 1000);
+            }
+            timeouts[6] = setTimeout(()=>{
+                this.bonus = this.winNumbers[6];
+                this.redo = true;
+            }, 7000);
+       }
    },
    mounted(){
-
+       this.showBalls();
    },
    beforeDestroy(){
-
+       timeouts.forEach((t)=>{
+           clearTimeout(t);
+       })
    },
    watch:{
 

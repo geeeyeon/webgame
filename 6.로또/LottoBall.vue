@@ -5,12 +5,28 @@
 <script>
 export default {
     name: 'LottoBall',
-    props: ['number'],
-    data(){
-        let background;
-        return{
-            background,
-        };
+    props: {
+        number: Number,
+    },
+    computed : {
+        styleObject(){
+            let background;
+            if(this.number <= 10){
+                background = 'red';
+            }else if(this.number <=20){
+                background = 'orange';
+            }else if(this.number <=30){
+                background = 'yellow';
+            }else if(this.number <=40){
+                background = 'blue';
+            }else{
+                background = 'green';
+            }
+            return{
+                background,
+            };
+        }
+       
     }
 }
 </script>
