@@ -20,7 +20,6 @@ function getWinNumbers(){
     }
     const bonusNumber = shuffle[shuffle.length -1];
     const winNumbers = shuffle.slice(0,6).sort((p,c)=>p-c);
-    console.log(winNumbers, bonusNumber)
     return [...winNumbers, bonusNumber];
 }
 const timeouts = [];
