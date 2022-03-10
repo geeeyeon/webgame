@@ -66,9 +66,14 @@ export default {
            clearTimeout(t);
        })
    },
-   watch:{
-
-   }
+//    watch:{ //어떤 값이 바뀐건지 감시
+//     redo(value, oldValue){
+//         console.log(value, oldValue)
+//         if(value === false){
+//             this.showBalls();
+//         }
+//     }
+//    }
 };
 </script>
 <style>

@@ -8,6 +8,7 @@ export default {
     props: {
         number: Number,
     },
+    // computed는 새로는 값 리턴, watch는 특정 동작을 수행
     computed : {
         styleObject(){
             let background;
