@@ -8,12 +8,17 @@
 import TdComponent from './TdComponent';
 
 export default {
+    components: {
+        TdComponent,
+    },
+    data(){
+        return{
+            parent: '부모'
+        }
+    },
     props: {
         rowData: Array,
         rowIndex: Number
-    },
-    components: {
-        TdComponent,
-    }
+    },   
 }
 </script>
