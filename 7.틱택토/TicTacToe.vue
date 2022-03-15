@@ -24,6 +24,10 @@ export default {
      
    },
    methods:{
+       onChangeData(){
+           // Vue.set(Vue import필요) 또는 this.$set을 사용하여 데이터를 바꾸면서 화면을 다시 그림
+           this.$set(this.tableData[1],0,'X');
+       }
    },
 };
 </script>
